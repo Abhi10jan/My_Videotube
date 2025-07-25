@@ -1,8 +1,10 @@
-class ApiResponse{
-    constructor(statusCode , message = "Success") {
-        this.statusCode = statusCode;
+class ApiResponse {
+    constructor(statusCode, data, message = "success") {
+        this.statusCode = statusCode
+        this.data = data
+        this.message = message
         this.success = statusCode < 400
-        this.message = message;
-        this.data = data // Initialize data to null
     }
 }
+
+export { ApiResponse }
