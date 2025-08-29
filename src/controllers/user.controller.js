@@ -65,9 +65,9 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar file is required");
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
+  const avatar = await uploadOnCloudinary(avatarLocalPath, "image");
   const coverImage = coverImageLocalPath
-    ? await uploadOnCloudinary(coverImageLocalPath)
+    ? await uploadOnCloudinary(coverImageLocalPath, "image")
     : null;
 
   if (!avatar || !avatar.url || !avatar.public_id) {
@@ -280,7 +280,7 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
         await deleteOnCloudinary(currentUser.avatar.public_id);
     }
 
-    const avatar = await uploadOnCloudinary(avatarLocalPath)
+    const avatar = await uploadOnCloudinary(avatarLocalPath, "image")
 
     if (!avatar.url || !avatar.public_id) {
         throw new ApiError(400, "Error while uploading on avatar")
@@ -321,7 +321,7 @@ const updateUserCoverImage = asyncHandler(async(req, res) => {
         await deleteOnCloudinary(currentUser.coverImage.public_id);
     }
 
-    const coverImage = await uploadOnCloudinary(coverImageLocalPath)
+    const coverImage = await uploadOnCloudinary(coverImageLocalPath, "image")
 
     if (!coverImage.url) {
         throw new ApiError(400, "Error while uploading on avatar")
